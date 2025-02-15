@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation with Live Feedback</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 300px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .valid {
+            border-color: green;
+            background-color: #e6ffed;
+        }
+
+        .invalid {
+            border-color: red;
+            background-color: #ffe6e6;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin: -10px 0 10px 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Sign-Up Form with Live Validation</h2>
+
+<form>
+
+    <input type="text" id="name" placeholder="Name" oninput="validateName()">
+    <div id="nameError" class="error-message"></div>
+
+    <input type="email" id="email" placeholder="Email" oninput="validateEmail()">
+    <div id="emailError" class="error-message"></div>
+
+   
+    <input type="password" id="password" placeholder="Password" oninput="validatePassword()">
+    <div id="passwordError" class="error-message"></div>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<script>
+
+function validateName() {
+    const nameInput = document.getElementById('name');
+    const nameError = document.getElementById('nameError');
+    const nameValue = nameInput.value.trim();
+
+    if (nameValue === '') {
+        nameError.textContent = 'Name must not be empty.';
+        nameInput.classList.add('invalid');
+        nameInput.classList.remove('valid');
+    } else {
+        nameError.textContent = '';
+        nameInput.classList.add('valid');
+        nameInput.classList.remove('invalid');
+    }
+}
+
+
+function validateEmail() {
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    const emailValue = emailInput.value.trim();
+    const emailPattern = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/;
+
+    if (!emailPattern.test(emailValue)) {
+        emailError.textContent = 'Email must be a valid format.';
+        emailInput.classList.add('invalid');
+        emailInput.classList.remove('valid');
+    } else {
+        emailError.textContent = '';
+        emailInput.classList.add('valid');
+        emailInput.classList.remove('invalid');
+    }
+}
+
+
+function validatePassword() {
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('passwordError');
+    const passwordValue = passwordInput.value;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if (!passwordPattern.test(passwordValue)) {
+        passwordError.textContent = 'Password must be at least 8 characters, with 1 uppercase letter and 1 number.';
+        passwordInput.classList.add('invalid');
+        passwordInput.classList.remove('valid');
+    } else {
+        passwordError.textContent = '';
+        passwordInput.classList.add('valid');
+        passwordInput.classList.remove('invalid');
+    }
+}
+
+
+function submitForm() {
+    validateName();
+    validateEmail();
+    validatePassword();
+
+    const inputs = document.querySelectorAll('input');
+    let allValid = true;
+    inputs.forEach(input => {
+        if (input.classList.contains('invalid') || input.value.trim() === '') {
+            allValid = false;
+        }
+    });
+
+    if (allValid) {
+        alert('Form submitted successfully!');
+    } else {
+        alert('Please fix the errors before submitting.');
+    }
+}
+</script>
+
+</body>
+</html>

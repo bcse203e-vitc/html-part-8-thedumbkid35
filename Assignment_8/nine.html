@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer with Sound</title>
+</head>
+<body>
+
+<h2>Countdown Timer with Sound Alert</h2>
+<input type="number" id="timerInput" placeholder="Enter seconds">
+<button onclick="startTimer()">Start Timer</button>
+<p id="timerDisplay"></p>
+
+<audio id="alarmSound" src="riser-hit-sfx-001-289802.mp3" preload="auto"></audio>
+
+<script>
+let interval;
+function startTimer() {
+    let time = parseInt(document.getElementById('timerInput').value, 10);
+    const timerDisplay = document.getElementById('timerDisplay');
+    const alarmSound = document.getElementById('alarmSound');
+
+  
+    clearInterval(interval);
+
+
+    if (isNaN(time) || time <= 0) {
+        alert('Please enter a valid positive number.');
+        return;
+    }
+
+    interval = setInterval(() => {
+        if (time <= 0) {
+            clearInterval(interval);
+            timerDisplay.textContent = 'Time is up!';
+            alarmSound.play();
+        } else {
+            timerDisplay.textContent = `${time} seconds left`;
+            time--;
+        }
+    }, 1000);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Size Adjuster</title>
+</head>
+<body>
+
+<h2>Font Size Adjuster</h2>
+<p id="text">This is some sample text</p>
+<button onclick="adjustFontSize('increase')">🔺 Increase Font</button>
+<button onclick="adjustFontSize('decrease')">🔻 Decrease Font</button>
+
+<script>
+let fontSize = 16;
+function adjustFontSize(action) {
+    fontSize += action === 'increase' ? 2 : -2;
+    document.getElementById('text').style.fontSize = fontSize + 'px';
+}
+</script>
+
+</body>
+</html>

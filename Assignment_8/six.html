@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+</head>
+<body>
+
+<h2>Digital Clock</h2>
+<p id="clock"></p>
+<button onclick="toggleFormat()">Toggle 12/24 Hour</button>
+
+<script>
+let is24Hour = true;
+
+function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('en-US', { hour12: !is24Hour });
+    document.getElementById('clock').textContent = time;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function toggleFormat() {
+    is24Hour = !is24Hour;
+}
+</script>
+
+</body>
+</html>

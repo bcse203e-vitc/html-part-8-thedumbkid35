@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter with Highlighted Repeated Words</title>
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Word Counter with Highlighted Repeated Words</h2>
+
+<textarea id="textarea" rows="5" cols="40" oninput="countWordsAndHighlight()"></textarea>
+<p>Word count: <span id="wordCount">0</span></p>
+<div id="highlightedText"></div>
+
+<script>
+function countWordsAndHighlight() {
+    const text = document.getElementById('textarea').value;
+    const words = text.trim().split(/\s+/).filter(Boolean);
+    const wordCount = words.length;
+    document.getElementById('wordCount').textContent = wordCount;
+
+    const wordFrequency = {};
+    words.forEach(word => {
+        word = word.toLowerCase();
+        wordFrequency[word] = (wordFrequency[word] || 0) + 1;
+    });
+
+    const highlighted = words.map(word => {
+        const lowerWord = word.toLowerCase();
+        return wordFrequency[lowerWord] > 1 
+            ? `<span class="highlight">${word}</span>` 
+            : word;
+    }).join(' ');
+
+    document.getElementById('highlightedText').innerHTML = highlighted;
+}
+</script>
+
+</body>
+</html>
